@@ -22,6 +22,7 @@ endmacro()
 
 
 add_subdirectory(cpu)
+add_subdirectory(memory)
 
 
 add_sources(main.cpp)
