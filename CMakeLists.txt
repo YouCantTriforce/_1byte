@@ -20,8 +20,11 @@ macro (add_sources)
 endmacro()
 #
 
-add_sources(main.cpp)
 
+add_subdirectory(cpu)
+
+
+add_sources(main.cpp)
 
 add_executable(_1byte ${SRCS})
 install(TARGETS _1byte RUNTIME DESTINATION bin)
