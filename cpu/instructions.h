@@ -3,6 +3,13 @@
 
 namespace cpu
 {
+    enum class Sets
+    {
+        MAIN,
+        CB,
+        DD
+    };
+
     enum MainInstructions
     {
         NOP = 0x00,  //  NOP

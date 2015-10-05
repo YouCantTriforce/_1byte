@@ -2,47 +2,54 @@
 #define CPU_H
 
 #include "instructions.h"
+#include "../memory/memory.h"
+#include "../utils/singleton.h"
 
 namespace cpu
 {
-    class CPU
+    class CPU:
+        public Singleton<CPU>
     {
 
     private:
         struct Registers
         {
-            char A;
-            char F;
-            char B;
-            char C;
-            char D;
-            char E;
-            char H;
-            char L;
+            unsigned char A;
+            unsigned char F;
+            unsigned char B;
+            unsigned char C;
+            unsigned char D;
+            unsigned char E;
+            unsigned char H;
+            unsigned char L;
             char16_t SP;
             char16_t PC;
-        };
-
-        struct Flags
-        {
-            bool Z;
-            bool N;
-            bool H;
-            bool C;
-            bool null_0;
-            bool null_1;
-            bool null_2;
-            bool null_3;
         };
 
     public:
         CPU();
         ~CPU();
 
+        void debugRegisters();
+
+        void exec(MainInstructions instr, Sets set = Sets::MAIN);
+
     private:
         Registers m_registers;
-        Flags m_flags;
+        unsigned char Z();
+        unsigned char N();
+        unsigned char H();
+        unsigned char C();
 
+        void setZ(char f);
+        void setN(char f);
+        void setH(char f);
+        void setC(char f);
+
+        unsigned char m_zmask = 1 << 7;
+        unsigned char m_nmask = 1 << 6;
+        unsigned char m_hmask = 1 << 5;
+        unsigned char m_cmask = 1 << 4;
     };
 }
 #endif
