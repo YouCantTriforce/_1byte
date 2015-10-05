@@ -45,11 +45,6 @@ namespace cpu
         void setN(char f);
         void setH(char f);
         void setC(char f);
-
-        unsigned char m_zmask = 1 << 7;
-        unsigned char m_nmask = 1 << 6;
-        unsigned char m_hmask = 1 << 5;
-        unsigned char m_cmask = 1 << 4;
     };
 }
 #endif
