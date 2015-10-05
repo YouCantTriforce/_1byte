@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 project(_1byte)
-set (CMAKE_CXX_FLAGS "-std=c++11")
+set (CMAKE_CXX_FLAGS "-std=c++14")
 
 #big thanks to this thread: http://stackoverflow.com/questions/7046956/populating-srcs-from-cmakelists-txt-in-subdirectories
 macro (add_sources)
@@ -20,12 +20,13 @@ macro (add_sources)
 endmacro()
 #
 
-
 add_subdirectory(cpu)
 add_subdirectory(memory)
-
+add_subdirectory(utils)
 
 add_sources(main.cpp)
 
 add_executable(_1byte ${SRCS})
 install(TARGETS _1byte RUNTIME DESTINATION bin)
+
+
