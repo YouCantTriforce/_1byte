@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <cassert>
+
 #include "../utils/utils.h"
 
 namespace cpu
@@ -162,22 +163,30 @@ namespace cpu
 
     void CPU::setZ(char f)
     {
-        m_registers.F ^= (-7 ^ m_registers.F) & (f << 7);
+        assert(f == 0 || f == 1);
+        m_registers.F &= ~(1 << 7);
+        m_registers.F |= (f << 7);
     }
 
     void CPU::setN(char f)
     {
-        m_registers.F ^= (-6 ^ m_registers.F) & (f << 6);
+        assert(f == 0 || f == 1);
+        m_registers.F &= ~(1 << 6);
+        m_registers.F |= (f << 6);
     }
 
     void CPU::setH(char f)
     {
-        m_registers.F ^= (-5 ^ m_registers.F) & (f << 5);
+        assert(f == 0 || f == 1);
+        m_registers.F &= ~(1 << 5);
+        m_registers.F |= (f << 5);
     }
 
     void CPU::setC(char f)
     {
-        m_registers.F ^= (-4 ^ m_registers.F) & (f << 4);
+        assert(f == 0 || f == 1);
+        m_registers.F &= ~(1 << 4);
+        m_registers.F |= (f << 4);
     }
 
 }
