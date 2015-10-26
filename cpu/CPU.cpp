@@ -12,6 +12,7 @@ namespace cpu
         m_registers.PC = 0x0100;
         m_registers.SP = 0xFFFE;
 
+        m_registers.A = 128;
         setZ(1);
         setC(1);
         setZ(0);
@@ -19,6 +20,10 @@ namespace cpu
         std::cout << "cpu online" << std::endl;
         debugRegisters();
         exec(MainInstructions::ADC_AA, Sets::CB);
+
+        char binary[17];
+        bin(AF(), binary, 2, 17);
+        printf("%s\n", binary);
     }
 
     CPU::~CPU()
@@ -115,24 +120,64 @@ namespace cpu
         return (m_registers.F >> 4) & 1;
     }
 
+    char16_t CPU::AF()
+    {
+        char16_t y = 0, x = 0;;
+        y = m_registers.A;
+        y <<= 8;
+        x = m_registers.F;
+        y |= x;
+        return y;
+    }
+
+    char16_t CPU::BC()
+    {
+        char16_t y = 0, x = 0;;
+        y = m_registers.B;
+        y <<= 8;
+        x = m_registers.C;
+        y |= x;
+        return y;
+    }
+
+    char16_t CPU::DE()
+    {
+        char16_t y = 0, x = 0;;
+        y = m_registers.D;
+        y <<= 8;
+        x = m_registers.E;
+        y |= x;
+        return y;
+    }
+
+    char16_t CPU::HL()
+    {
+        char16_t y = 0, x = 0;;
+        y = m_registers.H;
+        y <<= 8;
+        x = m_registers.L;
+        y |= x;
+        return y;
+    }
+
     void CPU::setZ(char f)
     {
-        m_registers.F ^= (-7 ^ m_registers.F) & (1 << 7);
+        m_registers.F ^= (-7 ^ m_registers.F) & (f << 7);
     }
 
     void CPU::setN(char f)
     {
-        m_registers.F ^= (-6 ^ m_registers.F) & (1 << 6);
+        m_registers.F ^= (-6 ^ m_registers.F) & (f << 6);
     }
 
     void CPU::setH(char f)
     {
-        m_registers.F ^= (-5 ^ m_registers.F) & (1 << 5);
+        m_registers.F ^= (-5 ^ m_registers.F) & (f << 5);
     }
 
     void CPU::setC(char f)
     {
-        m_registers.F ^= (-4 ^ m_registers.F) & (1 << 4);
+        m_registers.F ^= (-4 ^ m_registers.F) & (f << 4);
     }
 
 }

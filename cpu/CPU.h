@@ -4,6 +4,7 @@
 #include "instructions.h"
 #include "../memory/memory.h"
 #include "../utils/singleton.h"
+#include <string.h>
 
 namespace cpu
 {
@@ -40,6 +41,11 @@ namespace cpu
         unsigned char N();
         unsigned char H();
         unsigned char C();
+
+        char16_t AF();
+        char16_t BC();
+        char16_t DE();
+        char16_t HL();
 
         void setZ(char f);
         void setN(char f);
